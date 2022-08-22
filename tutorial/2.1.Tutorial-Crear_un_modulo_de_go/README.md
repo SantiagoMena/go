@@ -20,4 +20,8 @@ Esta secuencia de tutoriales incluye siete temas breves cada uno ilustra diferen
 
 ## Requisitos previos
 
+- **Algo de experiencia programando.** El código acá es bastante sencillo, pero ayudara conocer algo acerca de funciones.
+- **Una herramienta para editar código.** Cualquier editor de texto con el que haz trabajado. La mayoría de editores de texto tienen buen soporte para Go. El más popular es VSCode (gratis), GoLand(pago) y Vim(gratis).
+- **Una terminal de comandos.** Go  funciona bien usando cualquier terminal en Linux y Mac, y e PowerShell o cmd en Windows.
+
 ## Crea un módulo que otros puedan usar
