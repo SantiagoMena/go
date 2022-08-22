@@ -6,7 +6,7 @@ Go es expresivo, conciso, y eficiente. Su mecanismo de concurrencia hace que sea
 
 ## Primeros Pasos
 
-- [ ] Instalando Go
+- [x] [Instalando Go](1.Instalando_Go/README.md)
 - [ ] Tutorial: Primeros Pasos
 - [ ] Tutorial: Crear un módulo
 - [ ] Tutorial: Primeros pasos con espacios de trabajo multi-módulo
