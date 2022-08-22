@@ -2,9 +2,9 @@
 
 Tabla de contenido
 
-- [ ] [Requisitos previos](#requisitos-previos)
-- [ ] [Instalar Go](#instalar-go)
-- [ ] [Escribiendo algo de código](#escribiendo-algo-de-código)
+- [x] [Requisitos previos](#requisitos-previos)
+- [x] [Instalar Go](#instalar-go)
+- [x] [Escribiendo algo de código](#escribiendo-algo-de-código)
 - [ ] [Llamando código en un paquete externo](#llamando-código-en-un-paquete-externo)
 - [ ] [Escribiendo más código](#escribiendo-más-código)
 
@@ -77,7 +77,7 @@ Para el proposito de este tutorial, sólo usa `example/hello`
 Este es el código de Go. En este código:
 
 - Declara un paquete `main` (un paquete es la forma de agrupar funciones, y está compuesto por todos los archivos del directorio ).
-- Importa el popular [paquete](https://pkg.go.dev/fmt/) `fmt`, que contiene funciones para formatear texto, incluido imprimirlo en la consola. Este terminal es uno de [la libreria estandard](https://pkg.go.dev/std) de paquetes que obtienes al instalar Go.
+- Importa el popular [paquete](https://pkg.go.dev/fmt/) `fmt`, que contiene funciones para formatear texto, incluido imprimirlo en la consola. Este terminal es uno de [la librería estándar](https://pkg.go.dev/std) de paquetes que obtienes al instalar Go.
 - Implementa una función `main`para imprimir un mensaje en la consola. La función `main` se ejecuta por defecto cuando corres el paquete `main`.
 
 6. Corre tu código para ver el saludo.
@@ -90,5 +90,30 @@ El [comando](https://pkg.go.dev/cmd/go#hdr-Compile_and_run_Go_program) `go run` 
         $ go help
 
 ## Llamando código en un paquete externo
+
+Cuando necesitas que tu código haga algo que podría haberse implementado por otra persona, puedes buscar un paquete que contenga esas funciones para usarlas en tu código.
+
+1. Haz que el mensaje que se imprime algo más interesante con una función de un módulo externo.
+
+    1. Visite de [pkg.go.dev](pkg.go.dev) y [busca el paquete "quote"](https://pkg.go.dev/search?q=quote)
+    2. Encuentra y da click en el [paquete](https://pkg.go.dev/rsc.io/quote) `rsc.io/quote` en los resultados del buscador (si ves `rsc.io/quote/v3`, ignóralo por ahora)
+    3. En la sección **Documentation**, debajo de **Index**, nota la lista de funciones que puedes llamar desde tu código. Usaras la función `Go`.
+    4. En a parte superior la pagina, nota que el paquete `quote` está incluido en el módulo `rsc.io/quote`.
+
+Puedes usar el sitio [pkg.go.dev](pkg.go.dev) para encontrar módulos publicados que contengan funciones que puedas usar entu propio código. Los paquetes son publicados cómo módulos -- como `rsc.io/quote`-- donde otro pueden usarlos. Los módulos son mejorados en el tiempo con cada versión nueva y puedes actualizar tu código usando mejorando las versiones.
+
+2. En tu código de Go, importa el paquete `rsc.io/quote` y agrega una llamada a la función Go en tu código.
+
+Tu código debería ser el siguiente
+
+        package main
+
+        import "fmt"
+
+        import "rsc.io/quote"
+
+        func main() {
+            fmt.Println(quote.Go())
+        }
 
 ## Escribiendo más código
