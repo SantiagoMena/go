@@ -135,4 +135,4 @@ Cuando corriste `go mod tidy`, se encontró y descargó el módulo `rsc.io/quote
 
 ## Escribiendo más código
 
-Con está rápida introducción, tendrás Go instalado y aprendiste algunas cosas básicas. Para escribir más código con otro tutorial, hecha un vistazo a [Crear un módulo de Go](../tutorial/1.Tutorial-Crear_un_modulo_de_go/README.md).
+Con está rápida introducción, tendrás Go instalado y aprendiste algunas cosas básicas. Para escribir más código con otro tutorial, hecha un vistazo a [Crear un módulo de Go](../2.1.Tutorial-Crear_un_modulo_de_go/README.md).

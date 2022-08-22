@@ -57,4 +57,4 @@ Por defecto, el instalador instalara Go en `Program Files` o `Program Files (x86
 
 ## 3. Go code.
 
-Está listo! Visite el [tutorial Primeros Pasos](../2.Tutorial-Primeros_Pasos/README.md) para escribir algo código simple de Go. Le tomara al rededor de 10 minutos completarlo.
+Está listo! Visite el [tutorial Primeros Pasos](../1.Tutorial-Primeros_Pasos/README.md) para escribir algo código simple de Go. Le tomara al rededor de 10 minutos completarlo.
