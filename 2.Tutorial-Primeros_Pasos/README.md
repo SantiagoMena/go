@@ -5,8 +5,8 @@ Tabla de contenido
 - [x] [Requisitos previos](#requisitos-previos)
 - [x] [Instalar Go](#instalar-go)
 - [x] [Escribiendo algo de código](#escribiendo-algo-de-código)
-- [ ] [Llamando código en un paquete externo](#llamando-código-en-un-paquete-externo)
-- [ ] [Escribiendo más código](#escribiendo-más-código)
+- [x] [Llamando código en un paquete externo](#llamando-código-en-un-paquete-externo)
+- [x] [Escribiendo más código](#escribiendo-más-código)
 
 En este tutorial, tendrás una breve introducción a la programación en Go. En el camino tendrás que:
 
@@ -116,4 +116,23 @@ Tu código debería ser el siguiente
             fmt.Println(quote.Go())
         }
 
+3. Agrega nuevos requisitos del módulo.
+
+Go agregara el módulo `quote` como requerimiento, así como un archivo `go.sum`para la autenticación del módulo. Para saber más, mira [Autenticando Módulos](https://go.dev/ref/mod#authenticating) en las Referencias de Módulo de Go.
+
+        $ go mod tidy
+        go: finding module for package rsc.io/quote
+        go: found rsc.io/quote in rsc.io/quote v1.5.2
+
+4. Corre tu código para ver el mensaje generado por la función que haz llamado.
+
+        $ go run .
+        Don't communicate by sharing memory, share memory by communicating.
+
+Ten en cuenta que tu código llama la función `Go`, imprimiendo un inteligente mensaje sobre comunicación.
+
+Cuando corriste `go mod tidy`, se encontró y descargó el módulo `rsc.io/quote` que contiene el paquete que importaste. Por defecto, se descargo la última versión.
+
 ## Escribiendo más código
+
+Con está rápida introducción, tendrás Go instalado y aprendiste algunas cosas básicas. Para escribir más código con otro tutorial, hecha un vistazo a [Crear un módulo de Go](../tutorial/1.Tutorial-Create_a_Go_module/README.md).
