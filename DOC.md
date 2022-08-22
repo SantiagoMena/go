@@ -7,7 +7,7 @@ Go es expresivo, conciso, y eficiente. Su mecanismo de concurrencia hace que sea
 ## Primeros Pasos
 
 - [x] [Instalando Go](1.Instalando_Go/README.md)
-- [ ] Tutorial: Primeros Pasos
+- [ ] [Tutorial: Primeros Pasos](2.Tutorial-Primeros_Pasos/README.md)
 - [ ] Tutorial: Crear un módulo
 - [ ] Tutorial: Primeros pasos con espacios de trabajo multi-módulo
 - [ ] Tutorial: Desarrollando una RESTful API con Go y Gin
