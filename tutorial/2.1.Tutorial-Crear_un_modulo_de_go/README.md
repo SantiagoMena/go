@@ -12,11 +12,11 @@ Esta secuencia de tutoriales incluye siete temas breves cada uno ilustra diferen
 
 1. Crear un módulo -- Escribe un pequeño módulo con funciones que puedan ser llamadas desde otro módulo
 2. [Llama tu código desde otro módulo](../2.2.Tutorial-Llama_tu_codigo_desde_otro_modulo/README.md) -- Importa y usa tu nuevo módulo.
-3. [Retorna y gestiona errores](../2.3.Tutorial-Retorna_y_gestiona_un_error/)
-4. [Retorna un saludo aleatorio](../2.4.Tutorial-Retorna_un_saludo_aleatorio/)
-5. [Retorna saludos para multiples personas](../2.5.Tutorial-Retorna_saludos_para_multiples_personas/)
-6. [Agrega un test](../2.6.Tutorial-Agrega_un_test/)
-7. [Compila e instala la aplicación](../2.7.Tutorial-Compila_e_instala_la_aplicacion/)
+3. [Retorna y gestiona errores](../2.3.Tutorial-Retorna_y_gestiona_un_error/README.md)
+4. [Retorna un saludo aleatorio](../2.4.Tutorial-Retorna_un_saludo_aleatorio/README.md)
+5. [Retorna saludos para multiples personas](../2.5.Tutorial-Retorna_saludos_para_multiples_personas/README.md)
+6. [Agrega un test](../2.6.Tutorial-Agrega_un_test/README.md)
+7. [Compila e instala la aplicación](../2.7.Tutorial-Compila_e_instala_la_aplicacion/README.md)
 
 ## Requisitos previos
 
