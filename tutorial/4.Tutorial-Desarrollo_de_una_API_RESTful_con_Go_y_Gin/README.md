@@ -5,7 +5,7 @@ Tabla de contenido
 - [x] [Requisitos previos](#requisitos-previos)
 - [x] [Diseñar los endpoints de la API](#diseñar-los-endpoints-de-la-api)
 - [x] [Cree una carpeta para su código](#cree-una-carpeta-para-su-código)
-- [ ] [Crear los datos](#crear-los-datos)
+- [x] [Crear los datos](#crear-los-datos)
 - [ ] [Escribir un controlador para devolver todos los elementos](#escribir-un-controlador-para-devolver-todos-los-elementos)
 - [ ] [Escribir un controlador para añadir un nuevo elemento](#escribir-un-controlador-para-añadir-un-nuevo-elemento)
 - [ ] [Escribir un controlador para devolver un elemento específico](#escribir-un-controlador-para-devolver-un-elemento-específico)
@@ -83,3 +83,43 @@ En Linux o Mac:
 Este comando crea un archivo go.mod en el que las dependencias que añada se enumerarán para su seguimiento. Para obtener más información sobre cómo nombrar un módulo con una ruta de módulo, consulte [Gestión de dependencias](https://go.dev/doc/modules/managing-dependencies#naming_module).
 
 A continuación, diseñarás estructuras de datos para manejar datos.
+
+## Crear los datos
+
+Para simplificar el tutorial, los datos se almacenarán en memoria. Una API más típica interactuaría con una base de datos.
+
+Ten en cuenta que almacenar los datos en memoria significa que el conjunto de álbumes se perderá cada vez que detengas el servidor, y se volverá a crear cuando lo inicies.
+
+**Escribe el código**
+
+1. Utilizando tu editor de texto, crea un archivo llamado main.go en el directorio web-service. Escribirás tu código Go en este archivo.
+2. En main.go, en la parte superior del archivo, pega la siguiente declaración de paquete.
+
+    package main
+
+  Un programa independiente (a diferencia de una biblioteca) siempre se encuentra en el paquete main.
+
+3. Debajo de la declaración del paquete, pega la siguiente declaración de una estructura de álbum. La utilizarás para almacenar los datos del álbum en memoria.
+
+  Las etiquetas de estructura como json: "artist" especifican el nombre que debe tener un campo cuando el contenido de la estructura se serializa en JSON. Sin ellas, el JSON usaría los nombres de campo en mayúsculas del struct - un estilo no tan común en JSON.
+
+    // album represents data about a record album.
+    type album struct {
+        ID     string  `json:"id"`
+        Title  string  `json:"title"`
+        Artist string  `json:"artist"`
+        Price  float64 `json:"price"`
+    }
+
+4. Debajo de la declaración struct que acabas de añadir, pega el siguiente trozo de structs de álbumes que contienen datos que utilizarás para empezar.
+
+`main.go`
+
+    // albums slice to seed record album data.
+    var albums = []album{
+        {ID: "1", Title: "Blue Train", Artist: "John Coltrane", Price: 56.99},
+        {ID: "2", Title: "Jeru", Artist: "Gerry Mulligan", Price: 17.99},
+        {ID: "3", Title: "Sarah Vaughan and Clifford Brown", Artist: "Sarah Vaughan", Price: 39.99},
+    }
+
+A continuación, escribirás código para implementar tu primer endpoint.
