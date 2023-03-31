@@ -7,7 +7,7 @@ Tabla de contenido
 - [x] [Cree una carpeta para su código](#cree-una-carpeta-para-su-código)
 - [x] [Crear los datos](#crear-los-datos)
 - [x] [Escribir un handler para devolver todos los elementos](#escribir-un-handler-para-devolver-todos-los-elementos)
-- [ ] [Escribir un handler para añadir un nuevo elemento](#escribir-un-handler-para-añadir-un-nuevo-elemento)
+- [x] [Escribir un handler para añadir un nuevo elemento](#escribir-un-handler-para-añadir-un-nuevo-elemento)
 - [ ] [Escribir un handler para devolver un elemento específico](#escribir-un-handler-para-devolver-un-elemento-específico)
 - [ ] [Conclusión](#conclusión)
 - [ ] [Código completado](#código-completado)
@@ -238,3 +238,124 @@ Las primeras líneas de código deben tener este aspecto:
 
 ¡Has iniciado una API! En la siguiente sección, crearás otro endpoint con código para gestionar una solicitud POST para añadir un elemento.
 
+## Escribir un handler para añadir un nuevo elemento
+
+Cuando el cliente hace una petición POST en /albums, quieres añadir el álbum descrito en el cuerpo de la petición a los datos de álbumes existentes.
+
+Para ello, escribirás lo siguiente:
+
+- Lógica para añadir el nuevo álbum a la lista existente.
+- Un poco de código para dirigir la petición POST a tu lógica.
+
+**Escribe el código**
+
+1. Añade código para añadir los datos de los álbumes a la lista de álbumes.
+
+  En algún lugar después de las declaraciones de importación, pegue el siguiente código. (El final del archivo es un buen lugar para este código, pero Go no impone el orden en el que declaras las funciones).
+
+    // postAlbums adds an album from JSON received in the request body.
+    func postAlbums(c *gin.Context) {
+        var newAlbum album
+
+        // Call BindJSON to bind the received JSON to
+        // newAlbum.
+        if err := c.BindJSON(&newAlbum); err != nil {
+            return
+        }
+
+        // Add the new album to the slice.
+        albums = append(albums, newAlbum)
+        c.IndentedJSON(http.StatusCreated, newAlbum)
+    }
+
+En este código
+
+- Usas Context.BindJSON para enlazar el cuerpo de la petición a newAlbum.
+- Añade la estructura de álbumes inicializada a partir del JSON a la porción de álbumes.
+- Añade un código de estado 201 a la respuesta, junto con el JSON que representa el álbum añadido.
+
+1. Cambia tu función principal para que incluya la función router.POST,
+
+  como en lo siguiente.
+
+    func main() {
+        router := gin.Default()
+        router.GET("/albums", getAlbums)
+        router.POST("/albums", postAlbums)
+
+        router.Run("localhost:8080")
+    }
+
+En este código
+
+- Asocias el método POST en la ruta /albums con la función postAlbums.
+
+  Con Gin, puedes asociar un handler con una combinación de método HTTP y ruta. De esta forma, puedes enrutar por separado las peticiones enviadas a una única ruta en función del método que esté utilizando el cliente.
+
+**Run the code**
+
+1. Si el servidor sigue funcionando desde la última sección, deténgalo.
+2. Desde la línea de comandos en el directorio que contiene main.go, ejecute el código.
+
+    $ go run .
+
+3. Desde una ventana de línea de comandos diferente, 
+
+utilice curl para realizar una petición a su servicio web en ejecución.
+
+    $ curl http://localhost:8080/albums \
+        --include \
+        --header "Content-Type: application/json" \
+        --request "POST" \
+        --data '{"id": "4","title": "The Modern Sound of Betty Carter","artist": "Betty Carter","price": 49.99}'
+
+  El comando debería mostrar las cabeceras y el JSON del álbum añadido.
+
+    HTTP/1.1 201 Created
+    Content-Type: application/json; charset=utf-8
+    Date: Wed, 02 Jun 2021 00:34:12 GMT
+    Content-Length: 116
+
+    {
+        "id": "4",
+        "title": "The Modern Sound of Betty Carter",
+        "artist": "Betty Carter",
+        "price": 49.99
+    }
+
+4. Como en la sección anterior, utilice curl para recuperar la lista completa de álbumes, que puede utilizar para confirmar que se ha añadido el nuevo álbum.
+
+    $ curl http://localhost:8080/albums \
+        --header "Content-Type: application/json" \
+        --request "GET"
+
+El comando debería mostrar la lista de álbumes.
+
+    [
+            {
+                    "id": "1",
+                    "title": "Blue Train",
+                    "artist": "John Coltrane",
+                    "price": 56.99
+            },
+            {
+                    "id": "2",
+                    "title": "Jeru",
+                    "artist": "Gerry Mulligan",
+                    "price": 17.99
+            },
+            {
+                    "id": "3",
+                    "title": "Sarah Vaughan and Clifford Brown",
+                    "artist": "Sarah Vaughan",
+                    "price": 39.99
+            },
+            {
+                    "id": "4",
+                    "title": "The Modern Sound of Betty Carter",
+                    "artist": "Betty Carter",
+                    "price": 49.99
+            }
+    ]
+
+En la siguiente sección, añadirás código para gestionar un GET para un elemento específico.
