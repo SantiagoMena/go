@@ -8,7 +8,7 @@ Tabla de contenido
 - [x] [Crear los datos](#crear-los-datos)
 - [x] [Escribir un handler para devolver todos los elementos](#escribir-un-handler-para-devolver-todos-los-elementos)
 - [x] [Escribir un handler para añadir un nuevo elemento](#escribir-un-handler-para-añadir-un-nuevo-elemento)
-- [ ] [Escribir un handler para devolver un elemento específico](#escribir-un-handler-para-devolver-un-elemento-específico)
+- [x] [Escribir un handler para devolver un elemento específico](#escribir-un-handler-para-devolver-un-elemento-específico)
 - [ ] [Conclusión](#conclusión)
 - [ ] [Código completado](#código-completado)
 
@@ -323,7 +323,9 @@ utilice curl para realizar una petición a su servicio web en ejecución.
         "price": 49.99
     }
 
-4. Como en la sección anterior, utilice curl para recuperar la lista completa de álbumes, que puede utilizar para confirmar que se ha añadido el nuevo álbum.
+4. Como en la sección anterior, utilice curl para recuperar la lista completa de álbumes, 
+
+que puede utilizar para confirmar que se ha añadido el nuevo álbum.
 
     $ curl http://localhost:8080/albums \
         --header "Content-Type: application/json" \
@@ -359,3 +361,85 @@ El comando debería mostrar la lista de álbumes.
     ]
 
 En la siguiente sección, añadirás código para gestionar un GET para un elemento específico.
+
+## Escribir un handler para devolver un elemento específico
+
+Cuando el cliente hace una petición GET /albums/[id], quieres devolver el álbum cuyo ID coincide con el parámetro de ruta id.
+
+Para ello
+
+- Añadir lógica para recuperar el álbum solicitado.
+- Asignar la ruta a la lógica.
+
+**Escribir el código**
+
+1. Debajo de la función postAlbums que has añadido en la sección anterior, pega el siguiente código para recuperar un álbum específico.
+
+  Esta función getAlbumByID extraerá el ID de la ruta solicitada y localizará un álbum que coincida.
+
+    // getAlbumByID locates the album whose ID value matches the id
+    // parameter sent by the client, then returns that album as a response.
+    func getAlbumByID(c *gin.Context) {
+        id := c.Param("id")
+
+        // Loop over the list of albums, looking for
+        // an album whose ID value matches the parameter.
+        for _, a := range albums {
+            if a.ID == id {
+                c.IndentedJSON(http.StatusOK, a)
+                return
+            }
+        }
+        c.IndentedJSON(http.StatusNotFound, gin.H{"message": "album not found"})
+    }
+
+En este código, Ud:
+
+- Utiliza Context.Param para recuperar el parámetro id path de la URL. Cuando asigne este controlador a una ruta, incluirá un marcador de posición para el parámetro en la ruta.
+
+- Recorre los structs de álbumes en el slice, buscando uno cuyo valor del campo ID coincida con el valor del parámetro id. Si lo encuentras, serializa esa estructura de álbum a JSON y devuélvela como respuesta con un código HTTP 200 OK.
+
+  Como se mencionó anteriormente, un servicio del mundo real probablemente utilizaría una consulta a la base de datos para realizar esta búsqueda.
+
+- Devuelve un error HTTP 404 con http.StatusNotFound si no se encuentra el álbum.
+
+2. Por último, cambia tu main para que incluya una nueva llamada a router.GET, donde la ruta es ahora /albums/:id,
+
+como se muestra en el siguiente ejemplo.
+
+    func main() {
+        router := gin.Default()
+        router.GET("/albums", getAlbums)
+        router.GET("/albums/:id", getAlbumByID)
+        router.POST("/albums", postAlbums)
+
+        router.Run("localhost:8080")
+    }
+
+En este código, Ud:
+
+- Asocias la ruta /albums/:id con la función getAlbumByID. En Gin, los dos puntos que preceden a un elemento de la ruta significan que el elemento es un parámetro de la ruta.
+
+**Ejecute el código**
+
+1. Si el servidor sigue ejecutándose desde la última sección, deténgalo.
+2. Desde la línea de comandos en el directorio que contiene main.go, 
+
+ejecute el código para iniciar el servidor.
+
+    $ go run .
+
+3. Desde una ventana de línea de comandos diferente, 
+
+utilice curl para realizar una petición a su servicio web en ejecución.
+
+    $ curl http://localhost:8080/albums/2
+
+El comando debería mostrar JSON para el álbum cuyo ID hayas utilizado. Si no se encuentra el álbum, obtendrás JSON con un mensaje de error.
+
+    {
+        "id": "2",
+        "title": "Jeru",
+        "artist": "Gerry Mulligan",
+        "price": 17.99
+    }
