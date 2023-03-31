@@ -9,7 +9,7 @@ Tabla de contenido
 - [x] [Escribir un handler para devolver todos los elementos](#escribir-un-handler-para-devolver-todos-los-elementos)
 - [x] [Escribir un handler para añadir un nuevo elemento](#escribir-un-handler-para-añadir-un-nuevo-elemento)
 - [x] [Escribir un handler para devolver un elemento específico](#escribir-un-handler-para-devolver-un-elemento-específico)
-- [ ] [Conclusión](#conclusión)
+- [x] [Conclusión](#conclusión)
 - [ ] [Código completado](#código-completado)
 
 Este tutorial presenta los fundamentos de la escritura de una API de servicio web RESTful con Go y el [Gin Web Framework](https://gin-gonic.com/docs/) (Gin).
@@ -443,3 +443,13 @@ El comando debería mostrar JSON para el álbum cuyo ID hayas utilizado. Si no s
         "artist": "Gerry Mulligan",
         "price": 17.99
     }
+
+## Conclusión
+
+¡Enhorabuena! Acabas de usar Go y Gin para escribir un simple servicio web RESTful.
+
+Próximos temas sugeridos:
+
+Si eres nuevo en Go, encontrarás útiles mejores prácticas descritas en [Effective Go](https://go.dev/doc/effective_go) y [How to write Go code](https://go.dev/doc/code).
+El [Tour Go](https://go.dev/tour/welcome/1) es una excelente introducción paso a paso a los fundamentos de Go.
+Para más información sobre Gin, consulte la [documentación del paquete Gin Web Framework](https://pkg.go.dev/github.com/gin-gonic/gin) o la [documentación de Gin Web Framework](https://gin-gonic.com/docs/).
