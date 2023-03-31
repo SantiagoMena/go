@@ -4,7 +4,7 @@ Tabla de contenido
 
 - [x] [Requisitos previos](#requisitos-previos)
 - [x] [Diseñar los endpoints de la API](#diseñar-los-endpoints-de-la-api)
-- [ ] [Cree una carpeta para su código](#cree-una-carpeta-para-su-código)
+- [x] [Cree una carpeta para su código](#cree-una-carpeta-para-su-código)
 - [ ] [Crear los datos](#crear-los-datos)
 - [ ] [Escribir un controlador para devolver todos los elementos](#escribir-un-controlador-para-devolver-todos-los-elementos)
 - [ ] [Escribir un controlador para añadir un nuevo elemento](#escribir-un-controlador-para-añadir-un-nuevo-elemento)
@@ -54,3 +54,32 @@ Estos son los endpoints que creará en este tutorial.
 - GET - Obtener un álbum por su ID, devolviendo los datos del álbum como JSON.
 A continuación, crearás una carpeta para tu código.
 
+## Cree una carpeta para su código
+
+Para empezar, crea un proyecto para el código que vas a escribir.
+
+1. Abra un símbolo del sistema y cambie a su directorio de inicio.
+
+En Linux o Mac:
+
+    $ cd
+
+  En Windows:
+
+    C:\> cd %HOMEPATH%
+
+2. Utilizando el símbolo del sistema, cree un directorio para su código llamado `web-service-gin`.
+
+    $ mkdir web-service-gin
+    $ cd web-service-gin
+
+3. Cree un módulo en el que pueda gestionar las dependencias.
+
+  Ejecute el comando `go mod init`, dándole la ruta del módulo en el que estará su código.
+
+    $ go mod init example/web-service-gin
+    go: creating new go.mod: module example/web-service-gin
+
+Este comando crea un archivo go.mod en el que las dependencias que añada se enumerarán para su seguimiento. Para obtener más información sobre cómo nombrar un módulo con una ruta de módulo, consulte [Gestión de dependencias](https://go.dev/doc/modules/managing-dependencies#naming_module).
+
+A continuación, diseñarás estructuras de datos para manejar datos.
