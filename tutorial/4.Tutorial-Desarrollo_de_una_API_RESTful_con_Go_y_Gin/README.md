@@ -6,9 +6,9 @@ Tabla de contenido
 - [x] [Diseñar los endpoints de la API](#diseñar-los-endpoints-de-la-api)
 - [x] [Cree una carpeta para su código](#cree-una-carpeta-para-su-código)
 - [x] [Crear los datos](#crear-los-datos)
-- [ ] [Escribir un controlador para devolver todos los elementos](#escribir-un-controlador-para-devolver-todos-los-elementos)
-- [ ] [Escribir un controlador para añadir un nuevo elemento](#escribir-un-controlador-para-añadir-un-nuevo-elemento)
-- [ ] [Escribir un controlador para devolver un elemento específico](#escribir-un-controlador-para-devolver-un-elemento-específico)
+- [x] [Escribir un handler para devolver todos los elementos](#escribir-un-handler-para-devolver-todos-los-elementos)
+- [ ] [Escribir un handler para añadir un nuevo elemento](#escribir-un-handler-para-añadir-un-nuevo-elemento)
+- [ ] [Escribir un handler para devolver un elemento específico](#escribir-un-handler-para-devolver-un-elemento-específico)
 - [ ] [Conclusión](#conclusión)
 - [ ] [Código completado](#código-completado)
 
@@ -123,3 +123,118 @@ Ten en cuenta que almacenar los datos en memoria significa que el conjunto de á
     }
 
 A continuación, escribirás código para implementar tu primer endpoint.
+
+## Escribir un handler para devolver todos los elementos
+
+Cuando el cliente hace una petición en GET /albums, quieres devolver todos los álbumes como JSON.
+Para ello, escribirás lo siguiente:
+
+- Lógica para preparar una respuesta
+- Código para mapear la ruta de la petición a tu lógica
+
+Ten en cuenta que esto es al revés de cómo se ejecutarán en tiempo de ejecución, pero primero estás añadiendo dependencias y luego el código que depende de ellas.
+
+**Escribe el código**
+
+1. Debajo del código struct que añadiste en la sección anterior, pega el siguiente código para obtener la lista de álbumes.
+
+  Esta función getAlbums crea JSON a partir de la rebanada de structs de álbumes, escribiendo el JSON en la respuesta.
+
+    // getAlbums responds with the list of all albums as JSON.
+    func getAlbums(c *gin.Context) {
+        c.IndentedJSON(http.StatusOK, albums)
+    }
+
+En este código
+
+- Escribe una función getAlbums que toma un parámetro gin.Context. Tenga en cuenta que podría haber dado a esta función cualquier nombre - ni Gin ni Go requieren un formato de nombre de función en particular.
+
+- gin.Context es la parte más importante de Gin. Lleva los detalles de la solicitud, valida y serializa JSON, y más. (A pesar del nombre similar, es diferente del paquete context incorporado de Go).
+
+- Llama a Context.IndentedJSON para serializar la estructura en JSON y añadirla a la respuesta.
+
+  El primer argumento de la función es el código de estado HTTP que quieres enviar al cliente. Aquí, estás pasando la constante StatusOK del paquete net/http para indicar 200 OK.
+
+  Tenga en cuenta que puede sustituir Context.IndentedJSON por una llamada a Context.JSON para enviar un JSON más compacto. En la práctica, la forma indentada es mucho más fácil de trabajar cuando se depura y la diferencia de tamaño suele ser pequeña.
+
+2. Cerca de la parte superior de main.go, justo debajo de la declaración de slice albums, pega el código de abajo para asignar la función handler a una ruta endpoint.
+
+  Esto establece una asociación en la que getAlbums maneja las solicitudes a la ruta del punto final /albums.
+
+    func main() {
+        router := gin.Default()
+        router.GET("/albums", getAlbums)
+
+        router.Run("localhost:8080")
+    }
+
+En este código, usted:
+
+- Inicializa un enrutador Gin utilizando Default.
+
+- Usar la función GET para asociar el método HTTP GET y la ruta /albums con una función manejadora.
+
+  Ten en cuenta que estás pasando el nombre de la función getAlbums. Esto es diferente de pasar el resultado de la función, lo que harías pasando getAlbums() (observa el paréntesis).
+
+- Utilice la función Ejecutar para conectar el enrutador a un http.Server e iniciar el servidor.
+
+3. Cerca de la parte superior de main.go, justo debajo de la declaración de paquetes, importa los paquetes que necesitarás para soportar el código que acabas de escribir.
+
+Las primeras líneas de código deben tener este aspecto:
+
+    package main
+
+    import (
+        "net/http"
+
+        "github.com/gin-gonic/gin"
+    )
+
+4. Guarda main.go.
+
+**Ejecutar el código**
+
+1. Comienza a seguir el módulo Gin como una dependencia.
+
+  En la línea de comandos, utiliza go get para añadir el módulo github.com/gin-gonic/gin como una dependencia para tu módulo. Usa un argumento de punto para significar "obtener dependencias para el código en el directorio actual".
+
+    $ go get .
+    go get: added github.com/gin-gonic/gin v1.7.2
+
+2- Go ha resuelto y descargado esta dependencia para satisfacer la declaración de importación que ha añadido en el paso anterior.
+
+  Desde la línea de comandos en el directorio que contiene main.go, ejecuta el código. Usa un argumento de punto para decir "ejecuta el código en el directorio actual".
+
+    $ go run .
+
+  Una vez que el código se está ejecutando, tienes un servidor HTTP en ejecución al que puedes enviar peticiones.
+
+3. Desde una nueva ventana de línea de comandos, utiliza curl para hacer una petición a tu servicio web en ejecución.
+
+    $ curl http://localhost:8080/albums
+
+  El comando debería mostrar los datos con los que ha sembrado el servicio.
+
+    [
+            {
+                    "id": "1",
+                    "title": "Blue Train",
+                    "artist": "John Coltrane",
+                    "price": 56.99
+            },
+            {
+                    "id": "2",
+                    "title": "Jeru",
+                    "artist": "Gerry Mulligan",
+                    "price": 17.99
+            },
+            {
+                    "id": "3",
+                    "title": "Sarah Vaughan and Clifford Brown",
+                    "artist": "Sarah Vaughan",
+                    "price": 39.99
+            }
+    ]
+
+¡Has iniciado una API! En la siguiente sección, crearás otro endpoint con código para gestionar una solicitud POST para añadir un elemento.
+
